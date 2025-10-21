@@ -44,9 +44,25 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+```markdown
 
-```bash
+```
+
+## Local development
+
+1. Copy `.env.example` to `.env` and update `MONGODB_URI` if needed.
+
+2. Install dependencies:
+
+  npm install
+
+3. Start a local MongoDB instance (or use a hosted URI), then run:
+
+  npm run start:dev
+
+4. Run tests:
+
+  npm test
 # unit tests
 $ npm run test
 
