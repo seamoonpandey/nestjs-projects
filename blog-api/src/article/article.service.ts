@@ -14,17 +14,20 @@ export class ArticleService {
 
   async create(createArticleDto: CreateArticleDto): Promise<Article> {
     const created = await this.articleModel.create(createArticleDto);
-    return created.toObject();
+    const obj = created.toObject();
+    // normalize mongoose _id to id for API consumers
+    return { ...obj, id: obj._id?.toString() } as unknown as Article;
   }
 
   async findAll(): Promise<Article[]> {
-    return this.articleModel.find().lean().exec();
+    const res = await this.articleModel.find().lean().exec();
+    return res.map((r) => ({ ...r, id: (r as any)._id?.toString() } as unknown as Article));
   }
 
   async findOne(id: string): Promise<Article> {
     const article = await this.articleModel.findById(id).lean().exec();
     if (!article) throw new NotFoundException('Article not found');
-    return article;
+    return { ...article, id: (article as any)._id?.toString() } as unknown as Article;
   }
 
   async update(id: string, updateArticleDto: UpdateArticleDto): Promise<Article> {
@@ -33,7 +36,7 @@ export class ArticleService {
       .lean()
       .exec();
     if (!updated) throw new NotFoundException('Article not found');
-    return updated;
+    return { ...updated, id: (updated as any)._id?.toString() } as unknown as Article;
   }
 
   async remove(id: string): Promise<void> {
