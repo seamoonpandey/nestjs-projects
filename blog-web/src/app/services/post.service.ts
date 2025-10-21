@@ -10,22 +10,22 @@ export class PostService {
   private base = inject(BLOG_API_BASE);
 
   list(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.base}/posts`);
+    return this.http.get<Post[]>(`${this.base}/articles`);
   }
 
   get(id: string): Observable<Post> {
-    return this.http.get<Post>(`${this.base}/posts/${id}`);
+    return this.http.get<Post>(`${this.base}/articles/${id}`);
   }
 
   create(payload: Partial<Post>): Observable<Post> {
-    return this.http.post<Post>(`${this.base}/posts`, payload);
+    return this.http.post<Post>(`${this.base}/articles`, payload);
   }
 
   update(id: string, payload: Partial<Post>): Observable<Post> {
-    return this.http.put<Post>(`${this.base}/posts/${id}`, payload);
+    return this.http.put<Post>(`${this.base}/articles/${id}`, payload);
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.base}/posts/${id}`);
+    return this.http.delete<void>(`${this.base}/articles/${id}`);
   }
 }
