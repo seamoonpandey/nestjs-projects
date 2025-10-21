@@ -21,7 +21,9 @@ export class ArticleService {
 
   async findAll(): Promise<Article[]> {
     const res = await this.articleModel.find().lean().exec();
-    return res.map((r) => ({ ...r, id: (r as any)._id?.toString() } as unknown as Article));
+    return res.map(
+      (r) => ({ ...r, id: (r as any)._id?.toString() }) as unknown as Article,
+    );
   }
 
   async findOne(id: string): Promise<Article> {
