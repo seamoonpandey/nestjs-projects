@@ -30,7 +30,7 @@ import { PostService } from '../services/post.service';
         </label>
 
         <div class="actions">
-          <button type="button" class="btn secondary" (click)="router.navigate(['/'])">cancel</button>
+          <button type="button" class="btn secondary" (click)="cancel()">cancel</button>
           <button type="submit" class="btn" [disabled]="form.invalid || saving">{{ saving ? 'saving…' : (isEdit ? 'update' : 'save') }}</button>
         </div>
       </form>
@@ -45,7 +45,7 @@ export class PostFormComponent implements OnInit {
   });
   isEdit = false;
   id?: string;
-  saving = false;
+  public saving = false;
   constructor(private route: ActivatedRoute, private svc: PostService, private router: Router) {}
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -53,6 +53,9 @@ export class PostFormComponent implements OnInit {
     if (this.isEdit && this.id) {
       this.svc.get(this.id).subscribe({ next: (p) => this.form.patchValue(p) });
     }
+  }
+  cancel() {
+    this.router.navigate(['/']);
   }
   submit() {
     if (this.form.invalid) return;
