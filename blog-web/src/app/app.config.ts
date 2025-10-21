@@ -10,7 +10,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     // provide HttpClient and pick up interceptors from DI if added later
     provideHttpClient(withInterceptorsFromDi()),
-    // default API base — replace if you need a different host during deployment
-    { provide: BLOG_API_BASE, useValue: 'http://localhost:3000/api' }
+    // default API base — point to the backend default port (5000)
+    { provide: BLOG_API_BASE, useValue: 'http://localhost:5000/api' }
   ]
 };
